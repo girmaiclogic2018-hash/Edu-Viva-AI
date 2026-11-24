@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with language preferences, role, subjects, and study goals",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user identifier" },
+        "name": { "type": "string", "description": "Full student or educator name" },
+        "email": { "type": "string", "description": "User email address" },
+        "role": { "type": "string", "enum": ["student", "teacher", "admin"], "description": "Account role" },
+        "gradeLevel": { "type": "string", "description": "Grade level or TVET pathway" },
+        "language": { "type": "string", "enum": ["en", "am", "om", "so"], "description": "Preferred language" },
+        "subjects": { "type": "array", "description": "Registered subjects list" },
+        "learningGoals": { "type": "array", "description": "Learning goals list" },
+        "accessibility": { "type": "object", "description": "Accessibility preferences" },
+        "streakDays": { "type": "number", "description": "Consecutive study streak in days" },
+        "completedLessons": { "type": "array", "description": "IDs of completed lesson modules" },
+        "offlineDownloadedModules": { "type": "array", "description": "IDs of offline cached modules" },
+        "isDemo": { "type": "boolean", "description": "Sample demo indicator" },
+        "diagnosticLevel": { "type": "string", "description": "Current diagnostic assessment level" },
+        "assessmentScores": { "type": "object", "description": "Subject scores record" },
+        "lastSyncedAt": { "type": "string", "format": "date-time", "description": "ISO timestamp of last sync" }
+      },
+      "required": ["id", "name", "email", "role", "gradeLevel", "language", "subjects", "streakDays", "completedLessons"]
+    },
+    "UserProgress": {
+      "title": "UserProgress",
+      "description": "Real-time student progress tracking metrics, scores, streaks, and learning rescue alerts",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Identifier linking to user profile" },
+        "studentName": { "type": "string", "description": "Student full name" },
+        "gradeLevel": { "type": "string", "description": "Grade level" },
+        "streakDays": { "type": "number", "description": "Study streak in days" },
+        "completedLessonsCount": { "type": "number", "description": "Total completed lessons count" },
+        "completedLessonIds": { "type": "array", "description": "Completed lesson identifiers" },
+        "diagnosticLevel": { "type": "string", "description": "Diagnostic benchmark level" },
+        "offlineModulesCount": { "type": "number", "description": "Offline modules downloaded count" },
+        "weeklyLearningMinutes": { "type": "number", "description": "Total learning minutes this week" },
+        "masteryScore": { "type": "number", "description": "Curriculum mastery percentage score 0-100" },
+        "learningRescue": { "type": "object", "description": "Targeted support topic and remedial recommendation" },
+        "assessmentScores": { "type": "object", "description": "Map of subject to assessment score percentage" },
+        "status": { "type": "string", "enum": ["thriving", "needs_support", "at_risk"], "description": "Student performance status" },
+        "lastActive": { "type": "string", "description": "Last activity timestamp" },
+        "lastSyncedAt": { "type": "string", "format": "date-time", "description": "Timestamp of cloud synchronization" }
+      },
+      "required": ["userId", "studentName", "gradeLevel", "streakDays", "completedLessonIds", "masteryScore"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles collection"
+    },
+    "/user_progress/{userId}": {
+      "schema": "UserProgress",
+      "description": "Real-time user progress documents"
+    }
+  }
+}

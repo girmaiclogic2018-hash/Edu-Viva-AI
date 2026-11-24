@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection rules: Allow reading and writing user profile documents
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // User Progress collection rules: Allow reading and writing user progress tracking documents
+    match /user_progress/{userId} {
+      allow read, write: if true;
+    }
+  }
+}

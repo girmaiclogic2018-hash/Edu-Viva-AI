@@ -1,0 +1,6 @@
+{
+  "name": "EDUVIVA AI",
+  "description": "Inclusive, Multilingual, Low-Connectivity AI Education and Opportunity Platform for Ethiopia and Africa",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
